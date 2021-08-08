@@ -28,11 +28,11 @@ where stop1_sec = 0;
 4. Write a SQL query to compute a list showing the number of substitutions that
 happened in various stages of play for the entire tournament.
 */
-select m.play_stage, count(p.time_in_out) as substitution_time
-from match_mast as m
-inner join player_in_out as p
-on m.match_no = p.match_no
-group by m.play_stage;
+SELECT play_half,play_schedule,COUNT(*) 
+FROM player_in_out 
+WHERE in_out='I'
+GROUP BY play_half,play_schedule
+ORDER BY play_half,play_schedule,count(*) DESC;
 
 /* 
 5. Write a SQL query to find the number of bookings that happened in stoppage time.
