@@ -46,11 +46,14 @@ where play_schedule = 'ST';
 6. Write a SQL query to find the number of matches that were won by a single point, but
 do not include matches decided by penalty shootout.
 */
-select count(*) as matches_won_by_one_point
-from match_details
-where goal_score = 1
-and win_lose = 'W'
-and decided_by != 'P';
+SELECT COUNT(*)
+FROM euro_cup_2016.match_details AS t1, euro_cup_2016.match_details AS t2
+WHERE t1.match_no = t2.match_no
+AND t1.team_id != t2.team_id
+AND t1.goal_score - t2.goal_score = 1
+AND t1.win_lose = 'W'
+AND t1.penalty_score IS NULL
+;
 
 /*
 7. Write a SQL query to find all the venues where matches with penalty shootouts were
